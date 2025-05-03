@@ -6,12 +6,15 @@ import Seperator from '@avi99/aui/src/Seperator/Seperator';
 import { supabase } from '../../supabase/Supabase';
 import Barcode from '@kichiyaki/react-native-barcode-generator';
 import { useSelector } from 'react-redux';
-import { IUserState } from '../../store/interfaces';
+import { ILocale, IUserState } from '../../store/interfaces';
 import Toast from 'react-native-toast-message';
 import ViewShot from 'react-native-view-shot';
 import * as MediaLibrary from 'expo-media-library';
 import { I18n } from 'i18n-js';
 import { common } from '../../Localization/Locale';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { setLocale } from '../../store/UserSlice';
+import { useDispatch } from 'react-redux';
 export const Settings = () => {
     const [password, setPassword] = useState<string>('');
     const [inputKey, setInputKey] = useState<number>(0);
@@ -22,6 +25,8 @@ export const Settings = () => {
     const i18n = new I18n(common);
     i18n.enableFallback = true;
     i18n.locale = user?.locale?.locale || 'en';
+
+    const dispatch = useDispatch();
 
 
 
@@ -63,6 +68,18 @@ export const Settings = () => {
             autoHide: true,
         });
     }
+    const changeLanguage = async () => {
+        const localeList: string[] = ['en', 'ta', 'si']
+        const currentLocale: string = user?.locale?.locale || 'en';
+        const currentIndex: number = localeList.indexOf(currentLocale);
+        const nextLocale: string = localeList[(currentIndex + 1) % 3];
+        AsyncStorage.setItem('locale', nextLocale);
+        const locale: ILocale = {
+            locale: nextLocale,
+        }
+        dispatch(setLocale(locale));
+
+    }
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
@@ -100,6 +117,13 @@ export const Settings = () => {
                 onPress={() => saveBarcode()}
                 title={i18n.t('save_barcode')}
                 containerStyle={{ width: '98%', marginTop: 20, left: '1%' }}
+                ripple={true}
+            />
+            <Button
+                mode='flat'
+                onPress={() => changeLanguage()}
+                title={i18n.t('change_language')}
+                containerStyle={{ width: '98%', marginTop: 20, left: '1%', backgroundColor: '#67AE6E', borderColor: '#67AE6E' }}
                 ripple={true}
             />
 

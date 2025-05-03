@@ -4,8 +4,16 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from './Dashboard';
 import { Feather, FontAwesome, Entypo, MaterialIcons } from '@expo/vector-icons';
 import { Settings } from './Settings';
+import { IUserState } from '../../store/interfaces';
+import { useSelector } from 'react-redux';
+import { I18n } from 'i18n-js';
+import { signin } from '../../Localization/Locale';
 export const Customer = () => {
     const Tab = createBottomTabNavigator();
+    const user: IUserState = useSelector((state: any) => state.root.userReducer);
+    const i18n = new I18n(signin);
+    i18n.enableFallback = true;
+    i18n.locale = user?.locale?.locale || 'en';
     return (
         <Tab.Navigator
             screenOptions={{
@@ -24,7 +32,7 @@ export const Customer = () => {
             }}
         >
             <Tab.Screen
-                name='Home'
+                name={i18n.t('home')}
                 component={Dashboard}
                 //initialParams={{id:props.id}}
                 options={{
@@ -37,7 +45,7 @@ export const Customer = () => {
                 }}
             />
             <Tab.Screen
-                name='Settings'
+                name={i18n.t('settings')}
                 component={Settings}
                 options={{
                     headerShown: false,

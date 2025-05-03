@@ -21,6 +21,7 @@ import { setLocale } from './store/UserSlice';
 import { useDispatch } from 'react-redux';
 import { ILocale } from './store/interfaces';
 import { Dealer } from './ui/dealer/Dealer';
+import React from 'react';
 
 
 export const App = () => {

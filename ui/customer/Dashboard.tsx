@@ -7,8 +7,8 @@ import { useSelector } from 'react-redux'
 import { supabase } from '../../supabase/Supabase';
 import { common } from '../../Localization/Locale'
 import { I18n } from 'i18n-js'
+import {Header} from '../../components/Header'
 export const Dashboard = () => {
-    const [time, setTime] = useState<string | null>(null);
     const user: IUserState = useSelector((state: any) => state.root.userReducer);
 
     const i18n = new I18n(common);
@@ -18,16 +18,6 @@ export const Dashboard = () => {
 
     // const customer: ICustomerState = useSelector((state: any) => state.root.customerReducer);
     
-
-
-    useEffect(() => {
-        const date = new Date();
-        let hours = date.getHours();
-        if (hours >= 4 && hours < 12) setTime(i18n.t('good_morning'));
-        if (hours >= 12 && hours < 17) setTime(i18n.t('good_afternoon'));
-        if (hours >= 17 && hours < 21) setTime(i18n.t('good_evening'));
-        if (hours >= 21 || hours < 4) setTime(i18n.t('good_night'));
-    }, [])
 
     // useEffect(() => {
     //     const fetchData = async () => {
@@ -73,9 +63,7 @@ export const Dashboard = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ height: 50, width: '100%', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 27, left: 25 }}>{time} {user.user?.name}</Text>
-            </View>
+            <Header />
             <View style={{ height: 40, width: '100%', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 19, left: 25, fontFamily: 'Poppins-medium' }}>Waste data for {getDate()}</Text>
             </View>

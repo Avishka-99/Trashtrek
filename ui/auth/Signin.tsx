@@ -37,6 +37,7 @@ export const Signin = ({ navigation }: Props) => {
                 email,
                 password,
             })
+            console.log(data, 'data from supabase')
             if (error) {
                 console.error('Error signing in:', error.message);
                 return;
@@ -44,8 +45,10 @@ export const Signin = ({ navigation }: Props) => {
             const { data: user, error: user_err } = await supabase
                 .from('user')
                 .select('*')
-                .eq('user_name', data.user.email)
+                .ilike('user_name', email.toLowerCase())
                 .single();
+
+            console.log(user, 'user data from supabase')
 
             if (user) {
                 const { data: wasteData, error } = await supabase
@@ -153,6 +156,7 @@ export const Signin = ({ navigation }: Props) => {
                 </View>
             </KeyboardAwareScrollView>
         </SafeAreaView>
+        //"@avi99/aui": "^0.1.5",
 
     )
 }

@@ -8,6 +8,22 @@ export const signin = {
         signup: 'Sign up',
         sendotp: 'Send OTP',
         verifyotp: 'Verify OTP',
+        name: 'Name',
+        contact_no: 'Contact number',
+        nic: 'NIC',
+        role: 'Select role',
+        address: 'Address',
+        Admin: 'Admin',
+        Customer: 'Customer',
+        Inspector: 'Inspector',
+        Dealer: 'Dealer',
+        add_user: 'Add user',
+        home: 'Home',
+        settings: 'Settings',
+        create_new_user: 'Create new user',
+
+
+
     },
     si: {
         emailPlaceholder: 'විද්‍යුත් තැපැල් ලිපිනය',
@@ -18,6 +34,22 @@ export const signin = {
         signup: 'ලියාපදිංචි වන්න',
         sendotp: 'OTP යවන්න',
         verifyotp: 'OTP සත්‍යාපනය කරන්න',
+        name: 'නම',
+        contact_no: 'දුරකථන අංකය',
+        nic: 'ජාතික හැඳුනුම්පත අංකය',
+        role: 'පරිශීලක වර්ගය තෝරන්න',
+        address: 'ලිපිනය',
+        Admin: "අධිකාරි",
+        Customer: "පාරිභෝගිකයා",
+        Inspector: "පරීක්ෂකයා",
+        Dealer: "අලෙවි නියෝජිතයා",
+        add_user: 'පරිශීලකයෙකු එක් කරන්න',
+        home: 'මුල් පිටුව',
+        settings: 'සැකසුම්',
+        create_new_user: 'නව පරිශීලකයෙකු සාදන්න',
+
+
+
     },
     ta: {
         emailPlaceholder: 'மின்னஞ்சல்',
@@ -28,6 +60,24 @@ export const signin = {
         signup: 'பதிவு செய்யவும்',
         sendotp: 'OTP அனுப்பவும்',
         verifyotp: 'OTP சரிபார்க்கவும்',
+        name: 'பெயர்',
+        contact_no: 'தொடர்பு எண்ணை',
+        nic: 'தேசிய அடையாள அட்டை எண்',
+        role: 'பயனர் வகையைத் தேர்ந்தெடுக்கவும்',
+        address: 'முகவரி',
+        Admin: 'அதிகாரி',
+        Customer: 'வாடிக்கையாளர்',
+        Inspector: 'ஆய்வாளர்',
+        Dealer: 'டீலர்',
+        add_user: 'பயனரைச் சேர்க்கவும்',
+        home: 'முகப்பு',
+        settings: 'அமைப்புகள்',
+        create_new_user: 'புதிய பயனரை உருவாக்கு',
+
+
+
+
+
     },
 };
 
@@ -43,6 +93,11 @@ export const common = {
         new_password: 'New password',
         confirm: 'Confirm',
         save_barcode: 'Save Barcode',
+        admin_customer_label: 'Customer',
+        admin_dealer_label: 'Dealer',
+        admin_inspector_label: 'Inspector',
+        change_language: 'Change Language',
+        create_new_user: 'Create new user',
 
     },
     si: {
@@ -56,6 +111,12 @@ export const common = {
         new_password: 'නව මුරපදය',
         confirm: 'ස්ථිර කරන්න',
         save_barcode: 'කේතය සුරකින්න',
+        admin_customer_label: 'පාරිභෝගිකයා',
+        admin_dealer_label: 'අලෙවි නියෝජිතයා',
+        admin_inspector_label: 'පරීක්ෂකයා',
+        change_language: 'භාෂාව වෙනස් කරන්න',
+        create_new_user: 'නව පරිශීලකයෙකු සාදන්න',
+
     },
     ta: {
         good_morning: 'காலை வணக்கம்,',
@@ -68,6 +129,13 @@ export const common = {
         new_password: 'புதிய கடவுச்சொல்',
         confirm: 'உறுதிப்படுத்தவும்',
         save_barcode: 'பார்கோட்டை சேமிக்கவும்',
+        admin_customer_label: 'வாடிக்கையாளர்',
+        admin_dealer_label: 'டீலர்',
+        admin_inspector_label: 'ஆய்வாளர்',
+        change_language: 'மொழியை மாற்று',
+        create_new_user: 'புதிய பயனரை உருவாக்கு',
+
+
 
     },
 }

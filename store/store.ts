@@ -3,10 +3,11 @@ import { combineReducers, Reducer } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userReducer from './UserSlice';
 import customerReducer from './CustomerSlice';
+import AdminReducer from './AdminSlice';
 
 
 const rootReducer: Reducer = combineReducers({
-    userReducer, customerReducer
+    userReducer, customerReducer, AdminReducer
 })
 export const store = configureStore({
     reducer: {
