@@ -1,0 +1,73 @@
+export const signin = {
+    en: {
+        emailPlaceholder: 'Email',
+        passwordPlaceholder: 'Password',
+        forgotpassword: 'Forgot passsword?sign in using OTP',
+        signin: 'Sign In',
+        newtovgen: 'New to VGEN?',
+        signup: 'Sign up',
+        sendotp: 'Send OTP',
+        verifyotp: 'Verify OTP',
+    },
+    si: {
+        emailPlaceholder: 'විද්‍යුත් තැපැල් ලිපිනය',
+        passwordPlaceholder: 'මුරපදය',
+        forgotpassword: 'මුරපදය අමතකද? OTP භාවිතයෙන් පුරනය වන්න',
+        signin: 'පුරන්න',
+        newtovgen: 'VGEN සඳහා අලුත්ද?',
+        signup: 'ලියාපදිංචි වන්න',
+        sendotp: 'OTP යවන්න',
+        verifyotp: 'OTP සත්‍යාපනය කරන්න',
+    },
+    ta: {
+        emailPlaceholder: 'மின்னஞ்சல்',
+        passwordPlaceholder: 'கடவுச்சொல்',
+        forgotpassword: 'கடவுச்சொல்லை மறந்துவிட்டீர்களா? OTP மூலம் உள்நுழையவும்',
+        signin: 'உள்நுழைக',
+        newtovgen: 'VGEN க்கு புதியது?',
+        signup: 'பதிவு செய்யவும்',
+        sendotp: 'OTP அனுப்பவும்',
+        verifyotp: 'OTP சரிபார்க்கவும்',
+    },
+};
+
+export const common = {
+    en: {
+        good_morning: 'Good Morning,',
+        good_afternoon: 'Good Afternoon,',
+        good_evening: 'Good Evening,',
+        good_night: 'Good Night,',
+        scan_barcode: 'Sacan barcode',
+        change_password: 'Change Password',
+        my_barcode: 'My Barcode',
+        new_password: 'New password',
+        confirm: 'Confirm',
+        save_barcode: 'Save Barcode',
+
+    },
+    si: {
+        good_morning: 'සුභ උදෑසනක්,',
+        good_afternoon: 'සුභ දවල්වෙලක්,',
+        good_evening: 'සුභ සැන්දෑවක්,',
+        good_night: 'සුභ රාත්‍රියක්,',
+        scan_barcode: 'බාර් කේතය ස්කෑන් කරන්න',
+        change_password: 'මුරපදය වෙනස් කරන්න',
+        my_barcode: 'මගේ කේතය ',
+        new_password: 'නව මුරපදය',
+        confirm: 'ස්ථිර කරන්න',
+        save_barcode: 'කේතය සුරකින්න',
+    },
+    ta: {
+        good_morning: 'காலை வணக்கம்,',
+        good_afternoon: 'மதிய வணக்கம்,',
+        good_evening: 'மாலை வணக்கம்,',
+        good_night: 'இரவு வணக்கம்,',
+        scan_barcode: 'பார்கோட்டை ஸ்கேன் செய்யவும்',
+        change_password: 'கடவுச்சொல்லை மாற்றவும்',
+        my_barcode: 'என்னுடைய பார்கோட்',
+        new_password: 'புதிய கடவுச்சொல்',
+        confirm: 'உறுதிப்படுத்தவும்',
+        save_barcode: 'பார்கோட்டை சேமிக்கவும்',
+
+    },
+}

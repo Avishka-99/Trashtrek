@@ -23,6 +23,27 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "SUPABASE_URL":"https://oqjmjtkemvpqodpvmykw.supabase.co",
+      "SUPABASE_ANON_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xam1qdGtlbXZwcW9kcHZteWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5NDc5MDcsImV4cCI6MjA1OTUyMzkwN30.5Q-nICz4WKFKQZawtDr4hlRLctrU2ghXWmiIJCb8OsA"
+    },
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow Trashtrek to access your photos.",
+          "savePhotosPermission": "Allow Trashtrek to save photos.",
+          "isAccessMediaLocationEnabled": true
+        }
+      ],
+      [
+      "expo-camera",
+      {
+        "cameraPermission": "Allow Trashtrek to access your camera",
+        "microphonePermission": "Allow Trashtrek to access your microphone",
+        "recordAudioAndroid": true
+      }]
+    ]
   }
 }
