@@ -13,7 +13,7 @@ import * as MediaLibrary from 'expo-media-library';
 import { I18n } from 'i18n-js';
 import { common } from '../../Localization/Locale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setLocale } from '../../store/UserSlice';
+import { setLocale, setUser } from '../../store/UserSlice';
 import { useDispatch } from 'react-redux';
 export const Settings = () => {
     const [password, setPassword] = useState<string>('');
@@ -28,7 +28,14 @@ export const Settings = () => {
 
     const dispatch = useDispatch();
 
-
+    const logout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            showToast('error', error.message)
+            return;
+        }
+        dispatch(setUser(null));
+    }
 
     const changePassword = async () => {
         if (password.length > 0) {
@@ -40,7 +47,7 @@ export const Settings = () => {
                 return;
             }
             setInputKey(inputKey + 1);
-            showToast('error', 'Password changed successfully!')
+            showToast('success', 'Password changed successfully!')
         }
     };
 
@@ -83,8 +90,15 @@ export const Settings = () => {
 
     return (
         <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-            <View style={{ height: 80, width: '100%', justifyContent: 'center' }}>
+            <View style={{ height: 80, width: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'baseline' }}>
                 <Text style={{ fontSize: 27, left: 5 }}>{i18n.t('change_password')}</Text>
+                <Button
+                    mode='flat'
+                    onPress={() => logout()}
+                    title={i18n.t('log_out')}
+                    containerStyle={{ width: '20%', marginTop: 20, left: '-1%', backgroundColor: '#F75A5A', borderColor: '#F75A5A' }}
+                    ripple={true}
+                />
             </View>
             <View>
                 <TextInput

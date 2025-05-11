@@ -24,4 +24,5 @@ export interface IUserState {
     user: IUser | null,
     waste: IUserWaste[],
     locale: ILocale | null,
+    penalty?: number | null,
 }

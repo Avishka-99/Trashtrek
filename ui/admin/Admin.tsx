@@ -1,8 +1,7 @@
-import { View, Text, Dimensions } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from './Dashboard';
-import { Feather, FontAwesome, Entypo, MaterialIcons, FontAwesome6 } from '@expo/vector-icons';
+import {  FontAwesome,  MaterialIcons, FontAwesome6 } from '@expo/vector-icons';
 import { Settings } from './Settings';
 import { NewUser } from './NewUser';
 export const Admin = () => {
@@ -32,7 +31,7 @@ export const Admin = () => {
                     headerShown: false,
                     tabBarInactiveTintColor: 'black',
                     tabBarActiveTintColor: 'dodgerblue',
-                    tabBarShowLabel: true,
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ color, focused }) => <MaterialIcons name='dashboard' size={30} color={focused ? '#76B693' : '#8B8B8B'} />,
                     // tabBarHideOnKeyboard:true
                 }}
@@ -45,7 +44,7 @@ export const Admin = () => {
                     headerShown: false,
                     tabBarInactiveTintColor: 'black',
                     tabBarActiveTintColor: 'dodgerblue',
-                    tabBarShowLabel: true,
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ color, focused }) => <FontAwesome6 name='user-plus' size={25} color={focused ? '#76B693' : '#8B8B8B'} />,
                     // tabBarHideOnKeyboard:true
                 }}
@@ -58,7 +57,7 @@ export const Admin = () => {
                     tabBarInactiveTintColor: 'black',
                     tabBarActiveTintColor: 'dodgerblue',
                     tabBarShowLabel: false,
-                    
+
                     tabBarIcon: ({ color, focused }) => <FontAwesome name='gear' size={30} color={focused ? '#76B693' : '#8B8B8B'} />,
                 }}
             />

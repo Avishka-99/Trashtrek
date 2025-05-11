@@ -5,7 +5,8 @@ export interface ICustomer {
     address?: string,
     phone?: string,
     email?: string,
-    name?: string
+    name?: string,
+    penalty?: number,
 
 
 }

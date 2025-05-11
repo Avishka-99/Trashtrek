@@ -14,7 +14,7 @@ import { IUser, IUserState } from './store/interfaces';
 //import { NavigationContainer } from '@react-navigation/native/src/index';
 import * as MediaLibrary from 'expo-media-library';
 import { useEffect } from 'react';
-import Toast from 'react-native-toast-message';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 import { Inspector } from './ui/inspector/Inspector';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setLocale } from './store/UserSlice';
@@ -88,6 +88,45 @@ export default function AppWrapper() {
     'Poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
     'SourGummy-italic': require('./assets/fonts/SourGummy-Italic.ttf'),
   });
+  useEffect(() => {
+    async function prepare() {
+      SplashScreen.preventAutoHideAsync();
+    }
+    prepare();
+  }, []);
+
+  const toastConfig = {
+    success: (props: any) => (
+      <BaseToast
+        {...props}
+        style={{ backgroundColor: 'black', borderLeftColor: '#16C47F' }}
+        contentContainerStyle={{ paddingHorizontal: 15 }}
+        text1Style={{
+          fontSize: 15,
+          fontWeight: '400',
+          color: 'white'
+        }}
+      />
+    ),
+
+    error: (props: any) => (
+      <ErrorToast
+        {...props}
+        style={{ backgroundColor: 'black', borderLeftColor: 'tomato' }}
+        text1Style={{
+          color: 'white',
+        }}
+        text2Style={{
+          fontSize: 15
+        }}
+      />
+    ),
+  };
+
+
+
+
+
   if (!fontsLoaded) {
     return <></>;
   } else {
@@ -98,7 +137,7 @@ export default function AppWrapper() {
   return (
     <Provider store={store}>
       <App />
-      <Toast />
+      <Toast config={toastConfig} />
     </Provider>
   );
 }

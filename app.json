@@ -8,25 +8,40 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.avishka99.Trashtrek",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.ACCESS_MEDIA_LOCATION",
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.avishka99.Trashtrek"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "SUPABASE_URL":"https://oqjmjtkemvpqodpvmykw.supabase.co",
-      "SUPABASE_ANON_KEY":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xam1qdGtlbXZwcW9kcHZteWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5NDc5MDcsImV4cCI6MjA1OTUyMzkwN30.5Q-nICz4WKFKQZawtDr4hlRLctrU2ghXWmiIJCb8OsA"
+      "SUPABASE_URL": "https://oqjmjtkemvpqodpvmykw.supabase.co",
+      "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9xam1qdGtlbXZwcW9kcHZteWt3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM5NDc5MDcsImV4cCI6MjA1OTUyMzkwN30.5Q-nICz4WKFKQZawtDr4hlRLctrU2ghXWmiIJCb8OsA",
+      "eas": {
+        "projectId": "9c4dc221-2542-4351-9116-2f9224be3a81"
+      }
     },
     "plugins": [
       [
@@ -38,12 +53,13 @@
         }
       ],
       [
-      "expo-camera",
-      {
-        "cameraPermission": "Allow Trashtrek to access your camera",
-        "microphonePermission": "Allow Trashtrek to access your microphone",
-        "recordAudioAndroid": true
-      }]
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Trashtrek to access your camera",
+          "microphonePermission": "Allow Trashtrek to access your microphone",
+          "recordAudioAndroid": true
+        }
+      ]
     ]
   }
 }

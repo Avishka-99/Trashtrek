@@ -1,8 +1,7 @@
-import { View, Text, Dimensions } from 'react-native'
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Dashboard } from './Dashboard';
-import { Feather, FontAwesome, Entypo, MaterialIcons } from '@expo/vector-icons';
+import {  FontAwesome,  MaterialIcons } from '@expo/vector-icons';
 import { Settings } from './Settings';
 import { IUserState } from '../../store/interfaces';
 import { useSelector } from 'react-redux';
@@ -32,26 +31,26 @@ export const Customer = () => {
             }}
         >
             <Tab.Screen
-                name={i18n.t('home')}
+                name='Home'
                 component={Dashboard}
                 //initialParams={{id:props.id}}
                 options={{
                     headerShown: false,
                     tabBarInactiveTintColor: 'black',
                     tabBarActiveTintColor: 'dodgerblue',
-                    tabBarShowLabel: true,
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ color, focused }) => <MaterialIcons name='dashboard' size={30} color={focused ? '#76B693' : '#8B8B8B'} />,
                     // tabBarHideOnKeyboard:true
                 }}
             />
             <Tab.Screen
-                name={i18n.t('settings')}
+                name='Settings'
                 component={Settings}
                 options={{
                     headerShown: false,
                     tabBarInactiveTintColor: 'black',
                     tabBarActiveTintColor: 'dodgerblue',
-                    tabBarShowLabel: true,
+                    tabBarShowLabel: false,
                     tabBarIcon: ({ color, focused }) => <FontAwesome name='gear' size={30} color={focused ? '#76B693' : '#8B8B8B'} />,
                 }}
             />

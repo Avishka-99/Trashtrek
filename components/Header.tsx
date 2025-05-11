@@ -7,7 +7,6 @@ import { common } from '../Localization/Locale';
 export const Header = () => {
     const [time, setTime] = useState<string | null>(null);
     const user: IUserState = useSelector((state: any) => state.root.userReducer);
-    console.log(user);
 
     const i18n = new I18n(common);
     i18n.enableFallback = true;

@@ -9,16 +9,13 @@ import Toast from 'react-native-toast-message';
 import { IUserState } from '../../store/interfaces';
 import { useSelector } from 'react-redux';
 import { I18n } from 'i18n-js';
-import { common, signin } from '../../Localization/Locale';
+import { signin } from '../../Localization/Locale';
 export const NewUser = () => {
     const [roleid, setRoleId] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
     const [email, setEmail] = useState<string | null>(null);
     const [name, setName] = useState<string | null>(null);
     const [address, setAddress] = useState<string | null>(null);
-    const [role, setRole] = useState(null);
-    const [password, setPassword] = useState(null);
-    const [confirmPassword, setConfirmPassword] = useState(null);
     const [phone, setPhone] = useState<string | null>(null);
     const [nic, setNic] = useState<string | null>(null);
 
@@ -85,6 +82,13 @@ export const NewUser = () => {
                 return;
             }
             if (insertData) {
+                if(insertData.role == 2){
+                    const { data, error } = await supabase
+                    .from('waste_collection')
+                    .insert([
+                        { blue: 0, red: 0, green: 0, penalty: 0, user_id: insertData.id }
+                    ]);
+                }
                 showToast('success', 'User created successfully!');
                 setNameInputKey(nameInputKey + 1);
                 setEmailInputKey(emailInputKey + 1);

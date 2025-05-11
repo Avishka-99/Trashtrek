@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Dimensions, StyleSheet } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, SafeAreaView,  StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
 import { supabase } from '../../supabase/Supabase';
 import { useSelector } from 'react-redux';
 import { IUserState } from '../../store/interfaces';
@@ -27,7 +27,6 @@ export const Dashboard = () => {
             .eq('role', id);
 
         if (user) {
-            console.log(user);
             dispatch(setUsers(user as IUsers[]));
 
         }

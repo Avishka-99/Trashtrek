@@ -9,7 +9,6 @@ interface UserCardProps {
 
 
 export const UserCard: React.FC<UserCardProps> = ({ name, phone, address }) => {
-    console.log(name, phone, address);
     return (
         <View style={{ height: 100, width: '98%', display: 'flex', flexDirection: 'row', backgroundColor: 'white', borderRadius: 10, alignItems: 'center', borderWidth: 2, borderColor: 'black', left: '1%' }}>
             <View style={{ height: 100, width: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

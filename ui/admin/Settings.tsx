@@ -1,27 +1,22 @@
 import { View, Text, SafeAreaView } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, {  useState } from 'react'
 import TextInput from '@avi99/aui/src/Textinput/TextInput';
 import Button from '@avi99/aui/src/Buttons/Button';
-import Seperator from '@avi99/aui/src/Seperator/Seperator';
 import { supabase } from '../../supabase/Supabase';
-import Barcode from '@kichiyaki/react-native-barcode-generator';
 import { useSelector } from 'react-redux';
 import { ILocale, IUserState } from '../../store/interfaces';
 import Toast from 'react-native-toast-message';
 import ViewShot from 'react-native-view-shot';
-import * as MediaLibrary from 'expo-media-library';
 import { I18n } from 'i18n-js';
 import { common } from '../../Localization/Locale';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { setLocale } from '../../store/UserSlice';
+import { setLocale, setUser } from '../../store/UserSlice';
 import { useDispatch } from 'react-redux';
 export const Settings = () => {
     const [password, setPassword] = useState<string>('');
     const [inputKey, setInputKey] = useState<number>(0);
 
     const dispatch = useDispatch();
-
-    const ref = useRef<ViewShot>(null);
 
     const user: IUserState = useSelector((state: any) => state.root.userReducer);
     const i18n = new I18n(common);
@@ -42,7 +37,14 @@ export const Settings = () => {
             showToast('success', 'Password changed successfully!')
         }
     };
-
+    const logout = async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) {
+            showToast('error', error.message)
+            return;
+        }
+        dispatch(setUser(null));
+    }
     const changeLanguage = async () => {
         const localeList: string[] = ['en', 'ta', 'si']
         const currentLocale: string = user?.locale?.locale || 'en';
@@ -68,9 +70,16 @@ export const Settings = () => {
     }
 
     return (
-        <SafeAreaView style={{ backgroundColor: 'white', flex: 1 }}>
-            <View style={{ height: 80, width: '100%', justifyContent: 'center' }}>
+        <SafeAreaView style={{ backgroundColor: 'white', height: '100%', width: '100%' }}>
+            <View style={{ height: 80, width: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'baseline' }}>
                 <Text style={{ fontSize: 27, left: 5 }}>{i18n.t('change_password')}</Text>
+                <Button
+                    mode='flat'
+                    onPress={() => logout()}
+                    title={i18n.t('log_out')}
+                    containerStyle={{ width: '20%', marginTop: 20, left: '-1%', backgroundColor: '#F75A5A', borderColor: '#F75A5A' }}
+                    ripple={true}
+                />
             </View>
             <View>
                 <TextInput
@@ -94,6 +103,10 @@ export const Settings = () => {
                 containerStyle={{ width: '98%', marginTop: 20, left: '1%', backgroundColor: '#67AE6E', borderColor: '#67AE6E' }}
                 ripple={true}
             />
+
+
+
+
 
 
 

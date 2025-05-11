@@ -5,23 +5,34 @@ import Button from '@avi99/aui/src/Buttons/Button';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { supabase } from '../../supabase/Supabase';
 import { setUser, setWaste } from '../../store/UserSlice';
-import { IUser, IUserWaste } from '../../store/interfaces';
-import { useDispatch } from 'react-redux';
+import { IUser, IUserState, IUserWaste } from '../../store/interfaces';
+import { useDispatch, useSelector } from 'react-redux';
 import { I18n } from 'i18n-js';
-import { signin } from '../../Localization/Locale';
+import {  signin } from '../../Localization/Locale';
 import OtpInput from '@avi99/aui/src/OtpInput/OtpInput';
+import Toast from 'react-native-toast-message';
 export const SigninOtp = () => {
     const [email, setEmail] = React.useState<string | null>(null);
     const [isOtpSent, setIsOtpSent] = React.useState<boolean>(false);
     const [otp, setOtp] = React.useState<string | null>(null);
 
+    const user: IUserState = useSelector((state: any) => state.root.userReducer);
     const i18n = new I18n(signin);
     i18n.enableFallback = true;
-    i18n.locale = 'en';
+    i18n.locale = user?.locale?.locale || 'en';
 
     const dispatch = useDispatch();
 
-
+    const showToast = (type: string, message: string) => {
+        Toast.show({
+            type: type,
+            text1: type === 'success' ? 'Done' : 'Ooops!',
+            text2: message,
+            position: 'top',
+            visibilityTime: 2000,
+            autoHide: true,
+        });
+    }
     const sendOtp = async () => {
         if (email) {
             const { data, error } = await supabase.auth.signInWithOtp({
@@ -31,11 +42,11 @@ export const SigninOtp = () => {
                 }
             });
             if (error) {
-                console.error('Error sending OTP:', error.message);
+                showToast('error', error.message);
                 return;
             }
+            showToast('success', 'OTP sent to your email');
             setIsOtpSent(true);
-            console.log('OTP sent to:', email);
         }
     }
 
@@ -45,7 +56,6 @@ export const SigninOtp = () => {
     }
 
     const verifyotp = async () => {
-        console.log('OTP:', otp);
         if (email && otp) {
             const { data, error } = await supabase.auth.verifyOtp({
                 email: email,
@@ -53,7 +63,7 @@ export const SigninOtp = () => {
                 type: 'email',
             });
             if (error) {
-                console.error('Error verifying OTP:', error.message);
+                showToast('error', error.message);
                 return;
             }
             const { data: user, error: user_err } = await supabase
@@ -137,7 +147,7 @@ export const SigninOtp = () => {
                         mode='flat'
                         onPress={!isOtpSent ? () => sendOtp() : () => verifyotp()}
                         title={isOtpSent ? i18n.t('verifyotp') : i18n.t('sendotp')}
-                        containerStyle={{ width: '98%', marginTop: 20,left: '1%' }}
+                        containerStyle={{ width: '98%', marginTop: 20, left: '1%' }}
                         ripple={true}
                     />
                 </View>
