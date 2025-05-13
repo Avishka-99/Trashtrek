@@ -59,8 +59,6 @@ export const Settings = () => {
                 await MediaLibrary.createAlbumAsync('Barcode', asset, false);
 
                 showToast('success', 'Barcode saved to camera roll!')
-                // CameraRoll.save(uri, { type: 'photo' })
-                //     .then(() => console.log('Image saved to camera roll!'))
             }
         }
     }
@@ -122,6 +120,10 @@ export const Settings = () => {
             <ViewShot ref={ref} options={{ fileName: "my_barcode", format: "jpg", quality: 0.9 }}>
                 {/* <View style={{ height: 200, width: '100%' }}> */}
                 {user && user.user && user.user.address && <Barcode value={user.user.id.toString()} format='CODE39' />}
+                <View style={{ height: 20, width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text>User Id: {user.user?.id}</Text>
+                </View>
+
 
 
                 {/* </View> */}

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, RefreshControl } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, RefreshControl, Touchable, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import { ICustomerState, IUserState } from '../../store/interfaces'
 import { useSelector } from 'react-redux'
@@ -16,6 +16,8 @@ import { ScrollView } from 'react-native'
 import Button from '@avi99/aui/src/Buttons/Button';
 import Toast from 'react-native-toast-message';
 import TextInput from '@avi99/aui/src/Textinput/TextInput';
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export const Dashboard = () => {
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const [user_id, setUserId] = useState<number | null>(null);
@@ -29,6 +31,8 @@ export const Dashboard = () => {
     const [blueInputKey, setBlueInputKey] = useState<number>(0);
     const [redInputKey, setRedInputKey] = useState<number>(1000);
     const [greenInputKey, setGreenInputKey] = useState<number>(2000);
+
+    const [userId, setUserIdNum] = useState<number | null>(null);
 
     const customer: ICustomerState = useSelector((state: any) => state.root.customerReducer);
 
@@ -141,6 +145,8 @@ export const Dashboard = () => {
 
                 }
 
+            } else {
+                showToast('error', 'No data found');
             }
         })
 
@@ -251,16 +257,116 @@ export const Dashboard = () => {
 
     }
 
+    const getUserData = async () => {
+        if (userId) {
+            setUserId(userId);
+            const { data: user, error: user_err } = await supabase
+                .from('user')
+                .select('role')
+                .eq('id', userId)
+                .single();
+            if (user) {
+                if (user.role == 2) {
+                    const now = new Date();
+                    const year = now.getFullYear();
+                    const month = now.getMonth();
+                    const startDate = new Date(year, month, 1).toISOString();
+                    const endDate = new Date(year, month + 1, 1).toISOString();
+                    const { data: wasteData, error } = await supabase
+                        .from('waste_collection')
+                        .select(`*,user(user_name,address,contact_no,nick_name)`)
+                        .eq('user_id', userId)
+                        .gt('created_at', startDate)
+                        .lte('created_at', endDate)
+                        .single();
+                    if (!wasteData) {
+                        const { data: insert_data, error } = await supabase
+                            .from('waste_collection')
+                            .insert([
+                                { blue: 0, red: 0, green: 0, penalty: 0, user_id: userId }
+                            ]);
+                        const { data: wasteData_2, error: fetch_err } = await supabase
+                            .from('waste_collection')
+                            .select(`*,user(user_name,address,contact_no,nick_name)`)
+                            .eq('user_id', userId)
+                            .gt('created_at', startDate)
+                            .lte('created_at', endDate)
+                            .single();
+                        setWasteId(parseInt(wasteData_2.id));
+                        const customerData: ICustomer = {
+                            blue: wasteData_2?.blue,
+                            green: wasteData_2?.green,
+                            red: wasteData_2?.red,
+                            email: wasteData_2?.user.user_name,
+                            address: wasteData_2?.user.address,
+                            phone: wasteData_2?.user.contact_no,
+                            name: wasteData_2?.user.nick_name,
+                            penalty: wasteData_2?.penalty,
+                        }
+                        dispatch(setCustomer(customerData));
+
+
+
+                    } else {
+                        setWasteId(parseInt(wasteData.id));
+                        const customerData: ICustomer = {
+                            blue: wasteData?.blue,
+                            green: wasteData?.green,
+                            red: wasteData?.red,
+                            email: wasteData?.user.user_name,
+                            address: wasteData?.user.address,
+                            phone: wasteData?.user.contact_no,
+                            name: wasteData?.user.nick_name,
+                            penalty: wasteData?.penalty,
+                        }
+                        dispatch(setCustomer(customerData));
+
+
+
+                    }
+                } else {
+                    showToast('error', 'User is not a customer');
+                }
+
+
+            } else {
+                showToast('error', 'User not found');
+            }
+
+        } else {
+            showToast('error', 'Please enter a valid user id');
+        }
+    }
+
+
 
 
     return (
         <SafeAreaView style={styles.container}>
             <Header />
-            <View style={{ height: 80, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <IconButton title={i18n.t('Scan')} icon='camera' color='white' onPress={scanBarCode} containerStyle={{ height: 60 }} />
+            <View style={{ height: 80, width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
+                <IconButton title={i18n.t('Scan').length > 15 ? i18n.t('Scan').substring(0, 15).concat('..') : i18n.t('Scan')} icon='camera' color='white' onPress={scanBarCode} containerStyle={{ height: 60 }} />
+                <View style={{ width: 180, height: 60, display: 'flex', flexDirection: 'row' }}>
+                    <TextInput
+                        key={redInputKey}
+                        onChange={(text: string) => setUserIdNum(parseInt(text))}
+                        placeholder={i18n.t('user_id')}
+                        containerStyle={{ width: '70%', height: 60 }}
+                    ></TextInput>
+                    <View style={{ width: 60, height: 60, display: 'flex', justifyContent: 'center', backgroundColor: 'white' }}>
+                        <TouchableOpacity onPress={getUserData}>
+                            <View style={{ width: 40, height: 40, borderRadius: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'dodgerblue' }}>
+                                <FontAwesome name='search' size={24} color='white' />
+                            </View>
+                        </TouchableOpacity>
+
+
+                    </View>
+                </View>
+
             </View>
 
-            {customer.customer && <ScrollView refreshControl={
+            {customer.customer && <KeyboardAwareScrollView style={{ width: '100%', height: '100%' }} contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps='handled' refreshControl={
                 <RefreshControl
                     refreshing={refreshing}
                     onRefresh={onRefresh}
@@ -281,7 +387,7 @@ export const Dashboard = () => {
 
                     <View style={{ height: 100, width: '100%', display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                         <View style={{ width: 60, height: 60, backgroundColor: 'black', borderRadius: 40, display: 'flex', alignItems: 'center', justifyContent: 'center', left: 20 }}>
-                            <Text style={{ color: 'white', fontSize: 38 }}>{customer.customer.name?.includes(' ') ? customer.customer.name.split(' ')[0][0] + customer.customer.name.split(' ')[1][0] : customer.customer.name}</Text>
+                            <Text style={{ color: 'white', fontSize: 38 }}>{customer.customer.name?.includes(' ') ? customer.customer.name.split(' ')[0][0] + customer.customer.name.split(' ')[1][0] : customer.customer.name?.substring(0, 1)}</Text>
                         </View>
                         <View style={{ height: 100, display: 'flex', flexDirection: 'column', justifyContent: 'center', left: 25 }}>
                             <Text style={{ fontFamily: 'Poppins-medium', fontSize: 24, color: 'white' }}>{customer.customer.name}</Text>
@@ -362,7 +468,7 @@ export const Dashboard = () => {
                     ripple={true}
                 />
 
-            </ScrollView>}
+            </KeyboardAwareScrollView>}
 
 
 

@@ -121,6 +121,7 @@ export const common = {
         Scan: 'Scan code',
         add_penalty: 'Add penalty',
         Add: 'Add',
+        user_id: 'User ID',
 
 
     },
@@ -163,6 +164,8 @@ export const common = {
         Scan: 'කේතය ස්කෑන් කරන්න',
         add_penalty: 'දඩයක් එක් කරන්න',
         Add: 'එකතු කරන්න',
+        user_id: 'සා.අංකය',
+
 
 
 
@@ -213,6 +216,8 @@ export const common = {
         Scan: 'குறியீட்டை ஸ்கேன் செய்யவும்',
         add_penalty: 'அழிப்பைச் சேர்க்கவும்',
         Add: 'சேர்க்கவும்',
+        user_id: 'பய.அடை.',
+
 
 
     },
