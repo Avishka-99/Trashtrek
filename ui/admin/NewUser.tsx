@@ -1,10 +1,9 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
+import { TextInput, Button } from '@avi99/aui';
 import { Dropdown } from 'react-native-element-dropdown';
 import { supabase } from '../../supabase/Supabase';
-import Button from '@avi99/aui/src/Buttons/Button';
 import Toast from 'react-native-toast-message';
 import { IUserState } from '../../store/interfaces';
 import { useSelector } from 'react-redux';
@@ -82,12 +81,12 @@ export const NewUser = () => {
                 return;
             }
             if (insertData) {
-                if(insertData.role == 2){
+                if (insertData.role == 2) {
                     const { data, error } = await supabase
-                    .from('waste_collection')
-                    .insert([
-                        { blue: 0, red: 0, green: 0, penalty: 0, user_id: insertData.id }
-                    ]);
+                        .from('waste_collection')
+                        .insert([
+                            { blue: 0, red: 0, green: 0, penalty: 0, user_id: insertData.id }
+                        ]);
                 }
                 showToast('success', 'User created successfully!');
                 setNameInputKey(nameInputKey + 1);
@@ -163,24 +162,28 @@ export const NewUser = () => {
             <Text style={{ fontFamily: 'Poppins-medium', fontSize: 24, left: 4, top: 7 }}>{i18n_2.t('create_new_user')}</Text>
             <View style={{ flex: 1, top: 30 }}>
                 <TextInput
+                    value={name ? name : ''}
                     key={nameInputKey}
                     onChange={(text: string) => setName(text)}
                     placeholder={i18n_2.t('name')}
                     containerStyle={{ width: '98%', left: '1%' }}
                 ></TextInput>
                 <TextInput
+                    value={email ? email : ''}
                     key={emailInputKey}
                     onChange={(text: string) => setEmail(text)}
                     placeholder={i18n_2.t('emailPlaceholder')}
                     containerStyle={{ width: '98%', left: '1%' }}
                 ></TextInput>
                 <TextInput
+                    value={phone ? phone : ''}
                     key={phoneInputKey}
                     onChange={(text: string) => setPhone(text)}
                     placeholder={i18n_2.t('contact_no')}
                     containerStyle={{ width: '98%', left: '1%' }}
                 ></TextInput>
                 <TextInput
+                    value={nic ? nic : ''}
                     key={nicInputKey}
                     onChange={(text: string) => setNic(text)}
                     placeholder={i18n_2.t('nic')}
@@ -216,6 +219,7 @@ export const NewUser = () => {
                 // )}
                 />
                 {roleid && roleid == 2 && <TextInput
+                    value={address ? address : ''}
                     key={addressInputKey}
                     onChange={(text: string) => setAddress(text)}
                     placeholder={i18n_2.t('address')}

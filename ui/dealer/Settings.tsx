@@ -1,7 +1,6 @@
 import { View, Text, SafeAreaView } from 'react-native'
-import React, {  useState } from 'react'
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
-import Button from '@avi99/aui/src/Buttons/Button';
+import React, { useState } from 'react'
+import { TextInput, Button } from '@avi99/aui';
 import { supabase } from '../../supabase/Supabase';
 import { useDispatch, useSelector } from 'react-redux';
 import { ILocale, IUserState } from '../../store/interfaces';
@@ -78,6 +77,7 @@ export const Settings = () => {
             </View>
             <View>
                 <TextInput
+                    value={password}
                     key={inputKey}
                     onChange={(text: string) => setPassword(text)}
                     placeholder={i18n.t('new_password')}

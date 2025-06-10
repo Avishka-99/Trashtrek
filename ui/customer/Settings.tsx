@@ -1,8 +1,6 @@
 import { View, Text, SafeAreaView } from 'react-native'
 import React, { useRef, useState } from 'react'
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
-import Button from '@avi99/aui/src/Buttons/Button';
-import Seperator from '@avi99/aui/src/Seperator/Seperator';
+import { TextInput, Button, Seperator } from '@avi99/aui';
 import { supabase } from '../../supabase/Supabase';
 import Barcode from '@kichiyaki/react-native-barcode-generator';
 import { useSelector } from 'react-redux';
@@ -100,6 +98,7 @@ export const Settings = () => {
             </View>
             <View>
                 <TextInput
+                    value={password}
                     key={inputKey}
                     onChange={(text: string) => setPassword(text)}
                     placeholder={i18n.t('new_password')}
