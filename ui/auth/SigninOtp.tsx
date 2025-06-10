@@ -1,18 +1,16 @@
 import { View, Text, Image, SafeAreaView } from 'react-native'
 import React from 'react'
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
-import Button from '@avi99/aui/src/Buttons/Button';
+import { TextInput, Button, OtpInput } from '@avi99/aui';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { supabase } from '../../supabase/Supabase';
 import { setUser, setWaste } from '../../store/UserSlice';
 import { IUser, IUserState, IUserWaste } from '../../store/interfaces';
 import { useDispatch, useSelector } from 'react-redux';
 import { I18n } from 'i18n-js';
-import {  signin } from '../../Localization/Locale';
-import OtpInput from '@avi99/aui/src/OtpInput/OtpInput';
+import { signin } from '../../Localization/Locale';
 import Toast from 'react-native-toast-message';
 export const SigninOtp = () => {
-    const [email, setEmail] = React.useState<string | null>(null);
+    const [email, setEmail] = React.useState<string>('');
     const [isOtpSent, setIsOtpSent] = React.useState<boolean>(false);
     const [otp, setOtp] = React.useState<string | null>(null);
 
@@ -138,6 +136,7 @@ export const SigninOtp = () => {
 
                 <View style={{ width: '100%', flex: 3 / 10 }}>
                     <TextInput
+                        value={email}
                         onChange={(text: string) => setEmail(text)}
                         placeholder={i18n.t('emailPlaceholder')}
                         containerStyle={{ width: '98%', left: '1%' }}

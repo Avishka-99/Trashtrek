@@ -1,7 +1,6 @@
 import { View, Text, Image, SafeAreaView, Touchable } from 'react-native'
 import React from 'react'
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
-import Button from '@avi99/aui/src/Buttons/Button';
+import { TextInput, Button } from '@avi99/aui';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { supabase } from '../../supabase/Supabase';
 import { setPenalty, setUser, setWaste } from '../../store/UserSlice';
@@ -16,8 +15,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
 type Props = NativeStackScreenProps<StackParamList, 'Signin'>;
 export const Signin = ({ navigation }: Props) => {
-    const [email, setEmail] = React.useState<string | null>(null);
-    const [password, setPassword] = React.useState<string | null>(null);
+    const [email, setEmail] = React.useState<string>('');
+    const [password, setPassword] = React.useState<string>('');
     const user: IUserState = useSelector((state: any) => state.root.userReducer);
 
 
@@ -217,10 +216,12 @@ export const Signin = ({ navigation }: Props) => {
                 <View style={{ width: '100%', flex: 3 / 10 }}>
                     <TextInput
                         onChange={(text: string) => setEmail(text)}
+                        value={email}
                         placeholder={i18n.t('emailPlaceholder')}
                         containerStyle={{ width: '98%', left: '1%' }}
                     ></TextInput>
                     <TextInput
+                        value={password}
                         onChange={(text: string) => setPassword(text)}
                         placeholder={i18n.t('passwordPlaceholder')}
                         secured

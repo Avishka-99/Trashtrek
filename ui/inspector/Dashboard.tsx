@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { ICustomerState, IUserState } from '../../store/interfaces'
 import { useSelector } from 'react-redux'
 import { supabase } from '../../supabase/Supabase'
-import IconButton from '@avi99/aui/src/IconButton/IconButton';
+import { TextInput, Button, IconButton } from '@avi99/aui';
 import { Camera, CameraView } from 'expo-camera';
 import { useDispatch } from 'react-redux';
 import { ICustomer } from '../../store/interfaces';
@@ -13,9 +13,7 @@ import { Header } from '../../components/Header'
 import { common } from '../../Localization/Locale'
 import { I18n } from 'i18n-js'
 import { ScrollView } from 'react-native'
-import Button from '@avi99/aui/src/Buttons/Button';
 import Toast from 'react-native-toast-message';
-import TextInput from '@avi99/aui/src/Textinput/TextInput';
 import { FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 export const Dashboard = () => {
@@ -348,6 +346,7 @@ export const Dashboard = () => {
                 <IconButton title={i18n.t('Scan').length > 15 ? i18n.t('Scan').substring(0, 15).concat('..') : i18n.t('Scan')} icon='camera' color='white' onPress={scanBarCode} containerStyle={{ height: 60 }} />
                 <View style={{ width: 180, height: 60, display: 'flex', flexDirection: 'row' }}>
                     <TextInput
+                        value={userId ? userId.toString() : ''}
                         key={redInputKey}
                         onChange={(text: string) => setUserIdNum(parseInt(text))}
                         placeholder={i18n.t('user_id')}
@@ -423,12 +422,14 @@ export const Dashboard = () => {
                 <View style={{ width: '98%', left: '1%', height: 120, backgroundColor: '#BDE8CA', borderRadius: 5, top: '1%' }}>
                     <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-around' }}>
                         <TextInput
+                            value={blueValue}
                             key={blueInputKey}
                             onChange={(text: string) => setBlueValue(text)}
                             placeholder={i18n.t('Blue')}
                             containerStyle={{ width: '30%' }}
                         ></TextInput>
                         <TextInput
+                            value={redValue}
                             key={redInputKey}
                             onChange={(text: string) => setRedValue(text)}
                             placeholder={i18n.t('Red')}
@@ -436,6 +437,7 @@ export const Dashboard = () => {
 
                         ></TextInput>
                         <TextInput
+                            value={greenValue}
                             key={greenInputKey}
                             onChange={(text: string) => setGreenValue(text)}
                             placeholder={i18n.t('Green_2')}
